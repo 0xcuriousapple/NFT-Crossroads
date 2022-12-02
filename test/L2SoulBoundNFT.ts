@@ -30,6 +30,7 @@ describe("L2SoulBoundNFT", function () {
       
       const relayerFee = ethers.BigNumber.from("0");
       await l2SoulBoundNFT.propogateToMainnet(1, relayerFee, {value: relayerFee});
+      expect(l2SoulBoundNFT.propogateToMainnet(1, relayerFee, {value: relayerFee})).revertedWith("ERC721: invalid token ID");
 
       await network.provider.request({
         method: "hardhat_reset",

@@ -12,7 +12,7 @@ import {IConnext} from "@connext/nxtp-contracts/contracts/core/connext/interface
 contract ETHIndia22 is ERC721 {
 
     uint256 public constant mintPrice = 1e16; // 0.01 ETH
-
+    
     uint32 counter = 0;
     IConnext public connext; 
     uint32 public domainId;
@@ -37,9 +37,11 @@ contract ETHIndia22 is ERC721 {
         address to,
         uint256, 
         uint256 batchSize
-    ) 
-    internal override {
-        if(from != address(0)) revert TransfersNotPossible();
+    ) internal override {
+        // from 0 allow
+        // to 0 allow
+        // for all others dont allow
+        if(from != address(0) && to != address(0)) revert TransfersNotPossible();
     }
 
     function propogateToMainnet (
@@ -55,5 +57,6 @@ contract ETHIndia22 is ERC721 {
       0,                 // _slippage: can be anything between 0-10000 because no funds are being transferred
       abi.encode(tokenId)           // _callData: the encoded calldata to send
     );
+    _burn(tokenId);
   }
 }
