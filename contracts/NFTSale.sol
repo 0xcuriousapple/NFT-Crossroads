@@ -24,7 +24,7 @@ contract ETHIndia22NFTSale is ERC721 {
     error TransfersNotPossible();
     error NotAOwner();
     error AllSold();
-    constructor(IConnext _connext, address _target, uint32 _domainId) ERC721("EthIndia22", "ETHIN22") {
+    constructor(IConnext _connext, address _target, uint32 _domainId) ERC721("EthIndia22_Claim", "ETHIN22_C") {
         connext = _connext;
         target = _target;
         domainId = _domainId;
