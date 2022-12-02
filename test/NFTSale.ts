@@ -2,6 +2,8 @@ import { time, loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers, network } from "hardhat";
+import { config } from "dotenv";
+config();
 
 describe("ETHIndia22NFTSale", function () {
     it("Test", async function () {
@@ -10,14 +12,13 @@ describe("ETHIndia22NFTSale", function () {
         params: [
           {
             forking: {
-              jsonRpcUrl: "https://opt-goerli.g.alchemy.com/v2/FJ6Tl38nVaxBbkKR6lErMQw28wKmCg6F",
+              jsonRpcUrl: "https://opt-goerli.g.alchemy.com/v2/" + process.env.OP_GOERLI_API_KEY,
               blockNumber: 3147800,
             },
           },
         ],
       });
       const [owner, otherAccount] = await ethers.getSigners();
-
       const OP_G_ConnextAddress = "0x0C70d6E9760DEE639aC761f3564a190220DF5E44";
       const DOMAIN_ID = 1735353714;
       const TARGET_ADDRESS = owner.address;

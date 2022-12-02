@@ -11,8 +11,6 @@ import {IConnext} from "@connext/nxtp-contracts/contracts/core/connext/interface
 import {IXReceiver} from "@connext/nxtp-contracts/contracts/core/connext/interfaces/IXReceiver.sol";
 
 contract ETHIndia22NFT is ERC721 {
-
-
     uint32 public originDomain;
     address public source;
     IConnext public connext;
@@ -32,7 +30,6 @@ contract ETHIndia22NFT is ERC721 {
         connext = _connext;
     }
 
-    
     modifier onlySource(address _originSender, uint32 _origin) {
         require(
         _origin == originDomain &&
