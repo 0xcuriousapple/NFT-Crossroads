@@ -7,14 +7,25 @@ pragma solidity ^0.8.9;
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {IConnext} from "@connext/nxtp-contracts/contracts/core/connext/interfaces/IConnext.sol";
 
 contract ETHIndia22 is ERC721 {
 
     uint256 public constant mintPrice = 1e16; // 0.01 ETH
-    uint256 counter = 0;
+
+    uint32 counter = 0;
+    IConnext public connext; 
+    uint32 public domainId;
+    address public target;
+
+    
     error IncorrectBuyAmount();
     error TransfersNotPossible();
-    constructor() ERC721("EthIndia22", "ETHIN22") {
+    error NotAOwner();
+    constructor(IConnext _connext, address _target, uint32 _domainId) ERC721("EthIndia22", "ETHIN22") {
+        connext = _connext;
+        target = _target;
+        domainId = _domainId;
     }
 
     function buy() external payable {
@@ -24,10 +35,25 @@ contract ETHIndia22 is ERC721 {
     function _beforeTokenTransfer(
         address from,
         address to,
-        uint256, /* firstTokenId */
+        uint256, 
         uint256 batchSize
     ) 
     internal override {
         if(from != address(0)) revert TransfersNotPossible();
     }
+
+    function propogateToMainnet (
+    uint256 tokenId,
+    uint256 relayerFee
+    ) external payable {
+    connext.xcall{value: relayerFee}(
+      domainId, // _destination: Domain ID of the destination chain
+      target,            // _to: address of the target contract
+      address(0),        // _asset: use address zero for 0-value transfers
+      ownerOf(tokenId),        // _delegate: address that can revert or forceLocal on destination
+      0,                 // _amount: 0 because no funds are being transferred
+      0,                 // _slippage: can be anything between 0-10000 because no funds are being transferred
+      abi.encode(tokenId)           // _callData: the encoded calldata to send
+    );
+  }
 }
