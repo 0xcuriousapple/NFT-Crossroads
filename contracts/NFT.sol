@@ -1,17 +1,20 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
-
-pragma solidity ^0.8.0;
-
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {IConnext} from "@connext/nxtp-contracts/contracts/core/connext/interfaces/IConnext.sol";
 import {IXReceiver} from "@connext/nxtp-contracts/contracts/core/connext/interfaces/IXReceiver.sol";
 
+/// @title ETHIndia22NFT
+/// @author curiousapple (abhishek vispute)
+
 contract ETHIndia22NFT is ERC721 {
-    uint32 public originDomain;
+
+    /*///////////////////////////////////////////////////////////////
+                        STATE
+    //////////////////////////////////////////////////////////////*/
+
+    uint32 public originDomain; // all of this could be made constant
     address public source;
     IConnext public connext;
     
@@ -30,6 +33,7 @@ contract ETHIndia22NFT is ERC721 {
         connext = _connext;
     }
 
+    
     modifier onlySource(address _originSender, uint32 _origin) {
         require(
         _origin == originDomain &&
@@ -39,6 +43,8 @@ contract ETHIndia22NFT is ERC721 {
         );
         _;
     }
+
+    //////////////////////////////////////////////////////////////*/
 
     function xReceive(
         bytes32 _transferId,
