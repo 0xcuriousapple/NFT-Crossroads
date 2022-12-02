@@ -9,7 +9,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {IConnext} from "@connext/nxtp-contracts/contracts/core/connext/interfaces/IConnext.sol";
 
-contract ETHIndia22 is ERC721 {
+contract ETHIndia22NFTSale is ERC721 {
 
     uint256 public constant mintPrice = 1e16; // 0.01 ETH
     
