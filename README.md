@@ -1,8 +1,5 @@
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
+![876212982722482207](https://user-images.githubusercontent.com/46760063/205440623-969f3e11-4c44-4969-b55d-74f93b9d71f0.gif) 
+# NFT Crossroads
 
 ```shell
 npx hardhat help
