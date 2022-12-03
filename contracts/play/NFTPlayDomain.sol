@@ -37,7 +37,7 @@ contract NFTPlayDomain is ERC721 {
     error IncorrectBuyAmount();
     error AllSold();
 
-    constructor(IConnext _connext, address _target, uint32 _domainId) ERC721("EthIndia22_Claim", "ETHIN22_C") {
+    constructor(IConnext _connext, address _target, uint32 _domainId) ERC721("EthIndia22_Play", "ETHIN22_P") {
         connext = _connext;
         target = _target;
         domainId = _domainId;

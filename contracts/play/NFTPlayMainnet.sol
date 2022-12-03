@@ -16,9 +16,7 @@ contract NFTPlayMainnet is ERC721 {
     address public source;
     address public connext;
 
-
     error TransfersNotPossible();
-
 
     constructor(
         uint32 _originDomain,
@@ -58,7 +56,12 @@ contract NFTPlayMainnet is ERC721 {
 
         (from, to, tokenId) = abi.decode(_callData, (address, address, uint256));
         allowed = true;
-        _transfer(from, to, tokenId);
+        
+        if(_exists(tokenId))
+            _transfer(from, to, tokenId);
+        else
+            _mint(to, tokenId);
+
         allowed = false;
     }
 
