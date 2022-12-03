@@ -15,11 +15,8 @@ interface IConnext {
   ) external payable returns (bytes32);
 }
 
-/// @title ETHIndia22NFTSale
-/// @author curiousapple (abhishek vispute)
-/// @notice contract to do NFT Sale on sep chain and then migrate the claim to the mainnet.
 
-contract ETHIndia22NFTSale is ERC721 {
+contract NFTPlayDomain is ERC721 {
     
     /*///////////////////////////////////////////////////////////////
                         STATE
@@ -57,39 +54,25 @@ contract ETHIndia22NFTSale is ERC721 {
         _safeMint(msg.sender, ++counter);
     }
 
-    function propogateToMainnet (
-        uint256 tokenId,
-        uint256 relayerFee
-    ) external payable {
-        connext.xcall{value: relayerFee}(
-            domainId, // _destination: Domain ID of the destination chain
-            target,            // _to: address of the target contract
-            address(0),        // _asset: use address zero for 0-value transfers
-            ownerOf(tokenId),        // _delegate: address that can revert or forceLocal on destination
-            0,                 // _amount: 0 because no funds are being transferred
-            0,                 // _slippage: can be anything between 0-10000 because no funds are being transferred
-            abi.encode(tokenId)           // _callData: the encoded calldata to send
-        );
-        _burn(tokenId);
-    }
-
 
     /*///////////////////////////////////////////////////////////////
                       INTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
-    function _beforeTokenTransfer(
+    function _afterTokenTransfer(
         address from,
         address to,
         uint256, 
         uint256 batchSize
     ) internal override {
-        // from 0 allow
-        // to 0 allow
-        // for all others dont allow
-        if(from != address(0) && to != address(0)) revert TransfersNotPossible();
+        connext.xcall(
+            domainId,             // _destination: Domain ID of the destination chain
+            target,               // _to: address of the target contract
+            address(0),           // _asset: use address zero for 0-value transfers
+            ownerOf(tokenId),     // _delegate: address that can revert or forceLocal on destination
+            0,                    // _amount: 0 because no funds are being transferred
+            0,                    // _slippage: can be anything between 0-10000 because no funds are being transferred
+            abi.encode(from, to, tokenId)   //_callData: the encoded calldata to send
+        );
     }
-
-    
-
 }

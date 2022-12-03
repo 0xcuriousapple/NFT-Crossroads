@@ -2,8 +2,6 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-/// @title ETHIndia22NFT
-/// @author curiousapple (abhishek vispute)
 
 contract ETHIndia22NFT is ERC721 {
 
@@ -51,7 +49,6 @@ contract ETHIndia22NFT is ERC721 {
         uint32 _origin,
         bytes memory _callData
     ) external onlySource(_originSender, _origin) returns (bytes memory) {
-
         address receiver;
         uint256 tokenId;
         (receiver, tokenId) = abi.decode(_callData, (address, uint256));
