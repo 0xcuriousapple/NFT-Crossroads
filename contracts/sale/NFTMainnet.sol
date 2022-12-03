@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract ETHIndia22NFT is ERC721 {
+contract NFTMainnet is ERC721 {
 
     /*///////////////////////////////////////////////////////////////
                         STATE
@@ -12,11 +12,6 @@ contract ETHIndia22NFT is ERC721 {
     uint32 public originDomain; // all of this could be made constant
     address public source;
     address public connext;
-    
-    
-    error IncorrectBuyAmount();
-    error TransfersNotPossible();
-    error NotAOwner();
 
     constructor(
         uint32 _originDomain,

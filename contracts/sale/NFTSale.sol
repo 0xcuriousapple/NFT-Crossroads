@@ -15,11 +15,7 @@ interface IConnext {
   ) external payable returns (bytes32);
 }
 
-/// @title ETHIndia22NFTSale
-/// @author curiousapple (abhishek vispute)
-/// @notice contract to do NFT Sale on sep chain and then migrate the claim to the mainnet.
-
-contract ETHIndia22NFTSale is ERC721 {
+contract NFTSale is ERC721 {
     
     /*///////////////////////////////////////////////////////////////
                         STATE
@@ -39,8 +35,8 @@ contract ETHIndia22NFTSale is ERC721 {
 
     error IncorrectBuyAmount();
     error TransfersNotPossible();
-    error NotAOwner();
     error AllSold();
+
     constructor(IConnext _connext, address _target, uint32 _domainId) ERC721("EthIndia22_Claim", "ETHIN22_C") {
         connext = _connext;
         target = _target;

@@ -5,7 +5,7 @@ import { ethers, network } from "hardhat";
 import { config } from "dotenv";
 config();
 
-describe("ETHIndia22NFTSale", function () {
+describe("NFTSale", function () {
     it("Test", async function () {
       await network.provider.request({
         method: "hardhat_reset",
@@ -23,15 +23,15 @@ describe("ETHIndia22NFTSale", function () {
       const DOMAIN_ID = 1735353714;
       const TARGET_ADDRESS = owner.address;
       
-      const ETHIndia22NFTSale = await ethers.getContractFactory("ETHIndia22NFTSale");
-      const nftSale = await ETHIndia22NFTSale.deploy(OP_G_ConnextAddress, TARGET_ADDRESS, DOMAIN_ID);
+      const NFTSale = await ethers.getContractFactory("NFTSale");
+      const nftSale = await NFTSale.deploy(OP_G_ConnextAddress, TARGET_ADDRESS, DOMAIN_ID);
       await nftSale.buy({value: ethers.BigNumber.from("10000000000000000")}); 
       expect(await nftSale.ownerOf(1)).equals(await owner.getAddress()); 
       expect(nftSale.transferFrom(owner.address, otherAccount.address, 1)).revertedWith("TransfersNotPossible()");
       
       const relayerFee = ethers.BigNumber.from("0");
-      await nftSale.propogateToMainnet(1, relayerFee, {value: relayerFee});
-      expect(nftSale.propogateToMainnet(1, relayerFee, {value: relayerFee})).revertedWith("ERC721: invalid token ID");
+      await nftSale.propogateToMainnet(1, {value: relayerFee});
+      expect(nftSale.propogateToMainnet(1, {value: relayerFee})).revertedWith("ERC721: invalid token ID");
 
       await network.provider.request({
         method: "hardhat_reset",

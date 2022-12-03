@@ -35,9 +35,8 @@ contract NFTPlayDomain is ERC721 {
     //////////////////////////////////////////////////////////////*/
 
     error IncorrectBuyAmount();
-    error TransfersNotPossible();
-    error NotAOwner();
     error AllSold();
+
     constructor(IConnext _connext, address _target, uint32 _domainId) ERC721("EthIndia22_Claim", "ETHIN22_C") {
         connext = _connext;
         target = _target;
@@ -62,7 +61,7 @@ contract NFTPlayDomain is ERC721 {
     function _afterTokenTransfer(
         address from,
         address to,
-        uint256, 
+        uint256 tokenId, 
         uint256 batchSize
     ) internal override {
         connext.xcall(

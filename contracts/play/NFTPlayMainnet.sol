@@ -11,14 +11,14 @@ contract NFTPlayMainnet is ERC721 {
                         STATE
     //////////////////////////////////////////////////////////////*/
 
-    uint32 public originDomain; // all of this could be made constant
+    uint32 public originDomain; // 3 v could be made constant
+    bool public allowed;
     address public source;
     address public connext;
-    
-    
-    error IncorrectBuyAmount();
+
+
     error TransfersNotPossible();
-    error NotAOwner();
+
 
     constructor(
         uint32 _originDomain,
@@ -51,12 +51,15 @@ contract NFTPlayMainnet is ERC721 {
         uint32 _origin,
         bytes memory _callData
     ) external onlySource(_originSender, _origin) returns (bytes memory) {
+        
         address from;
         address to;
-        address tokenIdl
         uint256 tokenId;
+
         (from, to, tokenId) = abi.decode(_callData, (address, address, uint256));
+        allowed = true;
         _transfer(from, to, tokenId);
+        allowed = false;
     }
 
     function _beforeTokenTransfer(
@@ -65,13 +68,7 @@ contract NFTPlayMainnet is ERC721 {
         uint256, 
         uint256 batchSize
     ) internal override {
-        
-        require(
-            _origin == originDomain &&
-            _originSender == source &&
-            msg.sender == address(connext),
-        "Expected source contract on origin domain called by Connext"
-        );
+        if(!allowed) revert TransfersNotPossible();
     }
 
 }
