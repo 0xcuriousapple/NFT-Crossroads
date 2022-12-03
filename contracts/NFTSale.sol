@@ -2,7 +2,18 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import {IConnext} from "@connext/nxtp-contracts/contracts/core/connext/interfaces/IConnext.sol";
+
+interface IConnext {
+  function xcall(
+    uint32 _destination,
+    address _to,
+    address _asset,
+    address _delegate,
+    uint256 _amount,
+    uint256 _slippage,
+    bytes calldata _callData
+  ) external payable returns (bytes32);
+}
 
 /// @title ETHIndia22NFTSale
 /// @author curiousapple (abhishek vispute)

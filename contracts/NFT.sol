@@ -2,9 +2,6 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import {IConnext} from "@connext/nxtp-contracts/contracts/core/connext/interfaces/IConnext.sol";
-import {IXReceiver} from "@connext/nxtp-contracts/contracts/core/connext/interfaces/IXReceiver.sol";
-
 /// @title ETHIndia22NFT
 /// @author curiousapple (abhishek vispute)
 
@@ -16,7 +13,7 @@ contract ETHIndia22NFT is ERC721 {
 
     uint32 public originDomain; // all of this could be made constant
     address public source;
-    IConnext public connext;
+    address public connext;
     
     
     error IncorrectBuyAmount();
@@ -26,7 +23,7 @@ contract ETHIndia22NFT is ERC721 {
     constructor(
         uint32 _originDomain,
         address _source,
-        IConnext _connext
+        address _connext
     ) ERC721("EthIndia22", "ETHIN22"){
         originDomain = _originDomain;
         source = _source;
