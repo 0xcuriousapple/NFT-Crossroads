@@ -9,14 +9,13 @@ describe("NFTPlayMainnet", function () {
     it("Test", async function () {
     
       const [owner, otherAccount] = await ethers.getSigners();
-
       const ORIGIN_DOMAIN_ID = 0;
       const SOURCE = owner.address;
       const CONNEXT = owner.address;
 
       const NFTPlayMainnet = await ethers.getContractFactory("NFTPlayMainnet");
-      const nftPlayMainnet = await NFTPlayMainnet.deploy(ORIGIN_DOMAIN_ID, CONNEXT, owner.address);
-
+      const nftPlayMainnet = await NFTPlayMainnet.deploy(ORIGIN_DOMAIN_ID, CONNEXT, owner.address, process.env.EPNS_COMM_G, process.env.EPNS_CHANNEL, false);
+ 
       await nftPlayMainnet.xReceive(
         ethers.constants.HashZero,
         0, 

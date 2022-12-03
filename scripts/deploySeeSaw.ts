@@ -15,7 +15,7 @@ async function main() {
   const POLYGON_CONNEXT_ADDRESS = "0xa2F2ed226d4569C8eC09c175DDEeF4d41Bab4627";
   const DESTINATION_DOMAIN_ID = 1735353714;
   const SeeSawNFTDomain = await ethers.getContractFactory("SeeSawNFTDomain");
-  const seeSawNFTDomain = await SeeSawNFTDomain.deploy(POLYGON_CONNEXT_ADDRESS, MIRROR_ADDRESS, DESTINATION_DOMAIN_ID);
+  const seeSawNFTDomain = await SeeSawNFTDomain.deploy(POLYGON_CONNEXT_ADDRESS, MIRROR_ADDRESS, DESTINATION_DOMAIN_ID, process.env.EPNS_COMM_POLY_M, process.env.EPNS_CHANNEL, false);
   await seeSawNFTDomain.deployed();
   console.log(`Domain Deployed to ${seeSawNFTDomain.address} at Polygon Mumbai`);
 
@@ -24,7 +24,7 @@ async function main() {
   const ORIGIN_DOMAIN_ID = 9991;
 
   const SeeSawNFTMainnet = await ethers.getContractFactory("SeeSawNFTMainnet");
-  const seeSawNFTMainnet = await SeeSawNFTMainnet.deploy(G_CONNEXT_ADDRESS, seeSawNFTDomain.address, ORIGIN_DOMAIN_ID);
+  const seeSawNFTMainnet = await SeeSawNFTMainnet.deploy(G_CONNEXT_ADDRESS, seeSawNFTDomain.address, ORIGIN_DOMAIN_ID, process.env.EPNS_COMM_G, process.env.EPNS_CHANNEL, true);
   await seeSawNFTMainnet.deployed();
   console.log(`Mainnet deployed to ${seeSawNFTMainnet.address} at Goerli`);
 }

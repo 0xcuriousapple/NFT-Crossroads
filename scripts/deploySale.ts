@@ -25,7 +25,7 @@ async function main() {
   const G_CONNEXT_ADDRESS = "0xb35937ce4fFB5f72E90eAD83c10D33097a4F18D2";
 
   const NFT = await ethers.getContractFactory("NFTMainnet");
-  const nft = await NFT.deploy(ORIGIN_DOMAIN_ID, SOURCE, G_CONNEXT_ADDRESS);
+  const nft = await NFT.deploy(ORIGIN_DOMAIN_ID, SOURCE, G_CONNEXT_ADDRESS, process.env.EPNS_COMM_G, process.env.EPNS_CHANNEL, true);
   await nft.deployed();
   console.log(`NFTMainnet deployed to ${nft.address} at Goerli`);
 }

@@ -9,6 +9,10 @@ read();
 const config: HardhatUserConfig = {
   solidity: "0.8.17",
   networks: {
+    goerliTest: {
+      url: "https://eth-goerli.g.alchemy.com/v2/" + process.env.GOERLI_API_KEY,
+      mnemonic : "test test test test test test test test test test test test" 
+    },
     goerli: {
       url: "https://eth-goerli.g.alchemy.com/v2/" + process.env.GOERLI_API_KEY,
       accounts: {

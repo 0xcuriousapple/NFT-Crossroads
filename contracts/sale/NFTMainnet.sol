@@ -2,8 +2,8 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-
-contract NFTMainnet is ERC721 {
+import "../utils/EPNS/EPNSSendNotification.sol";
+contract NFTMainnet is ERC721, EPNSSendNotification {
 
     /*///////////////////////////////////////////////////////////////
                         STATE
@@ -16,8 +16,11 @@ contract NFTMainnet is ERC721 {
     constructor(
         uint32 _originDomain,
         address _source,
-        address _connext
-    ) ERC721("EthIndia22", "ETHIN22"){
+        address _connext,
+        address _epnsCommAddress, 
+        address _epnsChannel,
+        bool _sendNotifications
+    ) ERC721("EthIndia22", "ETHIN22") EPNSSendNotification(_epnsCommAddress, _epnsChannel, _sendNotifications){
         originDomain = _originDomain;
         source = _source;
         connext = _connext;
@@ -48,6 +51,8 @@ contract NFTMainnet is ERC721 {
         uint256 tokenId;
         (receiver, tokenId) = abi.decode(_callData, (address, uint256));
         _safeMint(receiver, tokenId);
+
+        push(receiver); // EPNS
     }
 
 }

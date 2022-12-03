@@ -25,7 +25,7 @@ async function main() {
   const G_CONNEXT_ADDRESS = "0xb35937ce4fFB5f72E90eAD83c10D33097a4F18D2";
 
   const NFTPlayMainnet = await ethers.getContractFactory("NFTPlayMainnet");
-  const nftPlayMainnet = await NFTPlayMainnet.deploy(ORIGIN_DOMAIN_ID, SOURCE, G_CONNEXT_ADDRESS);
+  const nftPlayMainnet = await NFTPlayMainnet.deploy(ORIGIN_DOMAIN_ID, SOURCE, G_CONNEXT_ADDRESS, process.env.EPNS_COMM_G, process.env.EPNS_CHANNEL, true);
   await nftPlayMainnet.deployed();
   console.log(`NFTPlayMainnet deployed to ${nftPlayMainnet.address} at Goerli`);
 }

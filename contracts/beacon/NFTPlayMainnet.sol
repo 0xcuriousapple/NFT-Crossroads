@@ -1,11 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
-
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-/// @title ETHIndia22NFT
-/// @author curiousapple (abhishek vispute)
+import "../utils/EPNS/EPNSSendNotification.sol";
 
-contract NFTPlayMainnet is ERC721 {
+contract NFTPlayMainnet is ERC721, EPNSSendNotification {
 
     /*///////////////////////////////////////////////////////////////
                         STATE
@@ -21,8 +19,11 @@ contract NFTPlayMainnet is ERC721 {
     constructor(
         uint32 _originDomain,
         address _source,
-        address _connext
-    ) ERC721("EthIndia22", "ETHIN22"){
+        address _connext,
+        address _epnsCommAddress, 
+        address _epnsChannel,
+        bool _sendNotifications
+    ) ERC721("EthIndia22", "ETHIN22") EPNSSendNotification(_epnsCommAddress, _epnsChannel, _sendNotifications){
         originDomain = _originDomain;
         source = _source;
         connext = _connext;
@@ -49,7 +50,6 @@ contract NFTPlayMainnet is ERC721 {
         uint32 _origin,
         bytes memory _callData
     ) external onlySource(_originSender, _origin) returns (bytes memory) {
-        
         address from;
         address to;
         uint256 tokenId;
@@ -63,6 +63,8 @@ contract NFTPlayMainnet is ERC721 {
             _mint(to, tokenId);
 
         allowed = false;
+
+        push(to); // EPNS
     }
 
     function _beforeTokenTransfer(
@@ -73,5 +75,4 @@ contract NFTPlayMainnet is ERC721 {
     ) internal override {
         if(!allowed) revert TransfersNotPossible();
     }
-
 }

@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "../utils/EPNS/EPNSSendNotification.sol";
 
 interface IConnext {
   function xcall(
@@ -16,7 +17,7 @@ interface IConnext {
 }
 
 
-contract SeeSawNFTMainnet is ERC721 {
+contract SeeSawNFTMainnet is ERC721, EPNSSendNotification{
     
     /*///////////////////////////////////////////////////////////////
                         STATE
@@ -46,7 +47,17 @@ contract SeeSawNFTMainnet is ERC721 {
     error AllSold();
     error NotAOwner();
     
-    constructor(IConnext _connext, address _mirror, uint32 _destinationDomainId) ERC721("EthIndia22_SeeSaw", "ETHIN22_SW") {
+    constructor(
+        IConnext _connext, 
+        address _mirror, 
+        uint32 _destinationDomainId, 
+        address _epnsCommAddress, 
+        address _epnsChannel,
+        bool _sendNotifications
+    ) 
+    ERC721("EthIndia22_SeeSaw", "ETHIN22_SW")     
+    EPNSSendNotification(_epnsCommAddress, _epnsChannel, _sendNotifications)
+    {
         connext = _connext;
         mirror = _mirror;
         destinationDomainId = _destinationDomainId;
@@ -69,7 +80,8 @@ contract SeeSawNFTMainnet is ERC721 {
             0,                 // _slippage: can be anything between 0-10000 because no funds are being transferred
             abi.encode(ownerOf(tokenId), tokenId)           // _callData: the encoded calldata to send
         );
-        _burn(tokenId);
+        _burn(tokenId);  
+        push(msg.sender);
     }
 
     function xReceive(
@@ -85,5 +97,6 @@ contract SeeSawNFTMainnet is ERC721 {
         
         (to, tokenId) = abi.decode(_callData, (address, uint256));
         _safeMint(to, tokenId);
+        push(to);
     }
 }
