@@ -1,3 +1,31 @@
+**Presentation :**  [link](https://www.canva.com/design/DAFTuZ5BQ6s/sWRYFCJYJnZJifTBXFwMWw/view?utm_content=DAFTuZ5BQ6s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+**Demo :** [link](https://www.youtube.com/watch?v=6eCSqBRSlz0)
+
+
+## Deployed Contracts
+**Feel Free to play with them, get some matic and goerli eth and you are set.**
+> **Warning**
+> These contracts are developed in 36 hour hack window, so they may contain serious bugs, dont use these contracts in production.
+
+### Sale
+**Domain:** https://mumbai.polygonscan.com/address/0x0e3bd02248C8c360732c95b0D3BAc35B54672e92#code </br>
+**Mainnet:** https://goerli.etherscan.io/token/0x9f0f42a234fc19f956a0e5633b525976d5cabb99 </br>
+**Examle crosschain transfer:** https://testnet.amarok.connextscan.io/tx/0x5ffc77e71987e0a80fc0a5f40243cf6329b42c7712d7c51746801023d5b103ed </br>
+
+
+### NFT Sale
+**Domain:** https://mumbai.polygonscan.com/address/0x0e3bd02248C8c360732c95b0D3BAc35B54672e92#code </br>
+**Mainnet:** https://goerli.etherscan.io/token/0x9f0f42a234fc19f956a0e5633b525976d5cabb99 </br>
+**Examle crosschain transfer:** https://testnet.amarok.connextscan.io/tx/0x5ffc77e71987e0a80fc0a5f40243cf6329b42c7712d7c51746801023d5b103ed </br>
+
+
+### SeeSaw
+**Domain:** https://mumbai.polygonscan.com/token/0x0eaa0f898c2d8feabad040d37e0ae430b87782bb </br>
+**Mainnet:** https://goerli.etherscan.io/token/0xb68597b15fe0befdb438842acdb4ab18391ac35c </br>
+**Examle crosschain transfer:** https://testnet.amarok.connextscan.io/tx/0x7a524271febf4f478b4c3f2f6ffcee8b36eb581c5bbfe02fd8fa9568b30cb3e1 </br>
+
+
 ![1](https://user-images.githubusercontent.com/46760063/205463908-462b526d-c23f-46b0-a533-f98f4b1caac7.png)
 ![2](https://user-images.githubusercontent.com/46760063/205463933-20788354-14b0-4830-909f-4c4db2a84bf1.png)
 ![3](https://user-images.githubusercontent.com/46760063/205463934-5ce68d26-c8eb-4c6c-be20-dd251411d796.png)
